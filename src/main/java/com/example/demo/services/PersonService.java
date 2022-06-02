@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.services;
 
+import com.example.demo.collections.Person;
+import com.example.demo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -23,5 +25,21 @@ public class PersonService {
                 .flatMap(person -> validateBeforeInsert.apply(repository, person))
                 .switchIfEmpty(Mono.defer(() -> personMono.doOnNext(repository::save)))
                 .then();
+    }
+
+
+    public Mono<Person> findPersonById(String id) {
+        return repository.findById(id);
+    }
+
+    public Mono<Void> update(Mono<Person> personMono) {
+        return personMono
+                .flatMap(person -> validateBeforeInsert.apply(repository, person))
+                .switchIfEmpty(Mono.defer(() -> personMono.doOnNext(repository::save)))
+                .then();
+    }
+
+    public Mono<Void> delete(String id) {
+        return repository.deleteById(id);
     }
 }

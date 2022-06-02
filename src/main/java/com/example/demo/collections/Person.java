@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.collections;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,6 +12,11 @@ public class Person {
 
     public Person() {
 
+    }
+
+    public Person(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Person(String name) {

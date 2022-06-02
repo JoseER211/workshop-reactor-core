@@ -1,6 +1,10 @@
 package com.example.demo;
 
 
+import com.example.demo.collections.Person;
+import com.example.demo.controller.PersonController;
+import com.example.demo.repositories.PersonRepository;
+import com.example.demo.services.PersonService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +22,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 
@@ -42,11 +45,11 @@ public class PersonControllerTest {
     @CsvSource({"Raul Alzate,0", "Raul Alzate,1"})
     void post(String name, Integer times) {
 
-        if(times == 0) {
+        if (times == 0) {
             when(repository.findByName(name)).thenReturn(Mono.just(new Person()));
         }
 
-        if(times == 1) {
+        if (times == 1) {
             when(repository.findByName(name)).thenReturn(Mono.empty());
         }
 
@@ -104,7 +107,7 @@ public class PersonControllerTest {
     void list() {
         var list = Flux.just(
                 new Person("Raul Alzate"),
-                new Person("Pedro" )
+                new Person("Pedro")
         );
         when(repository.findAll()).thenReturn(list);
 

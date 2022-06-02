@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.repositories;
 
+import com.example.demo.collections.Person;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
